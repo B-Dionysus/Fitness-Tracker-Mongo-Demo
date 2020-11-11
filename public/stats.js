@@ -1,4 +1,5 @@
 // get all workout data from back-end
+// Why is this called "/range", when it's returning all data, and not merely data from specific dates?
 
 fetch("/api/workouts/range")
   .then(response => {
@@ -8,7 +9,7 @@ fetch("/api/workouts/range")
     populateChart(data);
   });
 
-
+// This function call seems extraneous. What is it doing with the data that it receives? 
 API.getWorkoutsInRange()
 
   function generatePalette() {

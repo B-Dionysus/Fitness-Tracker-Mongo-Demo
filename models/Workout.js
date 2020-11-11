@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+const opts = { toJSON: { virtuals: true } };
 const Schema = mongoose.Schema;
 
 const WorkoutSchema = new Schema({
@@ -11,19 +11,44 @@ const WorkoutSchema = new Schema({
         type:Date,
         deafult:Date.now
     },
-    // exercises:[{
-    //     type:Schema.Types.ObjectId,
-    //     ref:"Exercise"
-    // }]
     exercises:[
-        // type:{type:String},
-        // name:{type:String},
-        // duraton:{type:Number},
-        // weight:{type:Number},
-        // reps:{type:Number},
-        // sets:{type:Number}
+        {   
+            // type:String,
+            // name:String,
+            // duration:Number,
+            // weight:Number,
+            // reps:Number,
+            // distance:Number,
+            // sets:Number
+        }
     ]
+    },
+    {  
+        toObject: {virtuals: true},
+        toJSON: {virtuals: true}
+    });
+  WorkoutSchema.virtual('totalDuration').get(function() {
+      let x=0;
+      for(elem of this.exercises){        
+        x=elem.duration;
+      }
+console.log(x);
+    return x;
   });
+// WorkoutSchema.methods.totalDuration=function(){
+//     let this.totalDuration=0;
+//     for(elem of exercises){
+//         this.totalDuration+=elem.duration;
+//     }
+// }
+
+//   UserSchema.methods.coolifier = function() {
+//     this.username = `${this.username}...the Coolest!`;
+//     return this.username;
+//   };
+  
+
+
 
 const Workout = mongoose.model("Workout", WorkoutSchema);
 
