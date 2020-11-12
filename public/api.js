@@ -30,8 +30,7 @@ const API = {
     });
 
     const json = await res.json();
-
-    return json;
+   return json;
   },
 
   async getWorkoutsInRange() {

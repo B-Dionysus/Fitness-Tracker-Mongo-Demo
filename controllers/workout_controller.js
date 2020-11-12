@@ -15,6 +15,12 @@ function findAllWorkouts(res, cb){
         cb(data);
     })
 }
+function insertWorkout(req, res, cb){
+    db.Workout.create({day:Date.now()}) 
+    
+        .then(data=>{ cb(data);})
+};
+
 function addToWorkout(req,res, cb){ 
     db.Workout.updateOne(
         {_id:req.params.id},
@@ -32,5 +38,6 @@ function addToWorkout(req,res, cb){
 module.exports={
     findMostRecentWorkout,
     findAllWorkouts,
-    addToWorkout
+    addToWorkout,
+    insertWorkout
 }

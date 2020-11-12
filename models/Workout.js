@@ -32,21 +32,8 @@ const WorkoutSchema = new Schema({
       for(elem of this.exercises){        
         x=elem.duration;
       }
-console.log(x);
     return x;
   });
-// WorkoutSchema.methods.totalDuration=function(){
-//     let this.totalDuration=0;
-//     for(elem of exercises){
-//         this.totalDuration+=elem.duration;
-//     }
-// }
-
-//   UserSchema.methods.coolifier = function() {
-//     this.username = `${this.username}...the Coolest!`;
-//     return this.username;
-//   };
-  
 
 
 
