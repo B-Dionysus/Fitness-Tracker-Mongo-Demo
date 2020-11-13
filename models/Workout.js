@@ -30,7 +30,7 @@ const WorkoutSchema = new Schema({
   WorkoutSchema.virtual('totalDuration').get(function() {
       let x=0;
       for(elem of this.exercises){        
-        x=elem.duration;
+        x+=elem.duration;
       }
     return x;
   });
