@@ -13,13 +13,7 @@ const WorkoutSchema = new Schema({
     },
     exercises:[
         {   
-            // type:String,
-            // name:String,
-            // duration:Number,
-            // weight:Number,
-            // reps:Number,
-            // distance:Number,
-            // sets:Number
+
         }
     ]
     },
@@ -27,12 +21,15 @@ const WorkoutSchema = new Schema({
         toObject: {virtuals: true},
         toJSON: {virtuals: true}
     });
+
+    // We'll "store" the total duration of every exercise in each workout here in this virtual field.
+    // It isn't actually stored, of course, it's recalculated as needed.
   WorkoutSchema.virtual('totalDuration').get(function() {
-      let x=0;
+      let totalDuration=0;
       for(elem of this.exercises){        
-        x+=elem.duration;
+        totalDuration+=elem.duration;
       }
-    return x;
+    return totalDuration;
   });
 
 

@@ -14,33 +14,43 @@ function apiRoutes(app){
 
     });
     
-
+    // I was expecting the frontend to send specific dates to request
+    // a "range".. but it just seems to want everything in the database
+    // again, so there's actually no difference between this and /api/workouts/
     app.get("/api/workouts/range", (req,res)=>{
         findAllWorkouts(res, data=>{
             res.json(data);
         })
     });
 
-    
+    // If there's no id, then we're creating a new
+    // workout with no exercises in it.
     app.post("/api/workouts/", (req, res) => {
         insertWorkout(req, res, (data)=>{
+            console.log(data);
             res.json(data);
         })
     });
 
     app.put("/api/workouts/:id", (req, res) => {
         addToWorkout(req, res, (data)=>{
-            console.log(data); // don't just return true
             res.json(data);
         })
 
     });
+
+    // This is called from the offlineDB, once we have restablished our
+    // connection to the online db.
     app.post("/api/transaction/bulk", (req, res) => {
+
+        // We will be building an array of database queries for bulkWrite() to work from
         let array=[];
+
+        // First we go through all of the records that we've saved up while offline
         for(ex of req.body){
-            console.log(ex);
             id=ex.id;
             type=ex.transType;
+            // transaction type and id are no longer needed
             delete ex.id;
             delete ex.transType;
             exercises=ex.exercises;
@@ -68,19 +78,12 @@ function apiRoutes(app){
             array.push(cmd);
         }
         bulkInsert(array, (data)=>{
-            console.log(data);
+            res.json(data);
         });
     });
 
 
     
 }
-// app.get("/all", (req, res) => {
-    //   db.notes.find({}, (err, data) => {
-    //     if (err) {
-    //       console.log(err);
-    //     } else {
-    //       res.json(data);
-
 
 module.exports=apiRoutes;

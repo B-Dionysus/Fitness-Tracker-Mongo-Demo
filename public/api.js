@@ -19,19 +19,15 @@ const API = {
     })
     .catch((err) => {
       // If they user can't reach our database, temporarily store it in 
-      // their indexDB
-      data.id=id;
-      data.transType="updateOne"
-      saveRecord(data);
-      
-      // clear form
-      // nameEl.value = '';
-      // amountEl.value = '';
+      // their indexDB. We'll also need to pass some useful data, like the 
+      // id of the workout, and whether we are creating a new workout or updating
+      // an existing one.
+      if(!data._id) data.id=id;
+      data.transType="updateOne";
+      saveRecord(data);    
     })
-    .then(()=>{
-      // You can't simply assume that you'll get a response--what if the user loses
-      // their internet connection? 
-      const json = 1;//res.json();
+    .then((res)=>{
+      const json = res.json();
       return json;
     });
 
@@ -45,7 +41,9 @@ const API = {
     });
 
     const json = await res.json();
-   return json;
+    // We should really check to see if we fail to create a workout here and, if not,
+    // put that transaction in our indexDB for later. Sadly, I couldn't get that to work, though.
+    return json;
   },
 
   async getWorkoutsInRange() {
