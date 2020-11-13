@@ -27,8 +27,8 @@ I you have thoughts about how I should have better implemented indexDB (see belo
 In implementing client-side data caching I ran into two problems that, ultimately, I was unable to solve. For a real-world project, of course, I would never be merging broken code into main like this. However, given that this is a learning environment, I thought it would make sense to show how far I'd gotten and possible get some tips for the future.
 
 The first problem was that the frontend was not designed with any thought to storing data locally. Many of the database calls are missing key info that we would need if we wanted to populate the online database later on. For example, adding exercises to the current workout is not set up to track the _id or the day of the workout. Which works fine in this case, because the data is being sent in right away. But in order to store it and then retrieve and save it later on, we have to add that information back in. Things get messy.
-`
-A harder problem for me to solve tonight, but an easier problem to solve in general is that the frontend is written using ```async``` style promises, but weall of the indexDB examples we were given use .then() .catch() style functions. This is hardly an insurmountable problem, and a few more hours with Google would surely have allowed me to figure it out, but I ran out of hours.
+
+A harder problem for me to solve tonight, but an easier problem to solve in general is that the frontend is written using ```async``` style promises, but all of the indexDB examples we were given in class use .then() .catch(). This is hardly an insurmountable problem, and a few more hours with Google would surely have allowed me to figure it out, but I ran out of hours.
 ## Screenshot
 ![screnshot](./public/screenshot.png)
 ## License
