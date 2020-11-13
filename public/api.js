@@ -16,11 +16,26 @@ const API = {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data)
+    })
+    .catch((err) => {
+      // If they user can't reach our database, temporarily store it in 
+      // their indexDB
+      data.id=id;
+      data.transType="updateOne"
+      saveRecord(data);
+      
+      // clear form
+      // nameEl.value = '';
+      // amountEl.value = '';
+    })
+    .then(()=>{
+      // You can't simply assume that you'll get a response--what if the user loses
+      // their internet connection? 
+      const json = 1;//res.json();
+      return json;
     });
 
-    const json = await res.json();
 
-    return json;
   },
   async createWorkout(data = {}) {
     const res = await fetch("/api/workouts", {

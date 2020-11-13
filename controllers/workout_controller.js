@@ -33,11 +33,22 @@ function addToWorkout(req,res, cb){
     .then(data=>{
         cb(data);
     })
+};
 
+function bulkInsert(data, cb){
+    db.Workout.bulkWrite(data)
+        .then(dbTransaction => {
+        cb(dbTransaction);
+        })
+        .catch(err => {
+        cb((err));
+        });
 }
+
 module.exports={
     findMostRecentWorkout,
     findAllWorkouts,
     addToWorkout,
-    insertWorkout
+    insertWorkout,
+    bulkInsert
 }
