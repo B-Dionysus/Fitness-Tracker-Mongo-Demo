@@ -9,6 +9,28 @@ const API = {
     const json = await res.json();
     return json[json.length - 1];
   },
+  // async addExercise(data) {
+  //   const id = location.search.split("=")[1];
+
+  //   const res = await fetch("/api/workouts/" + id, {
+  //     method: "PUT",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify(data)
+  //   })
+  //   .catch((err) => {
+  //     // If they user can't reach our database, temporarily store it in 
+  //     // their indexDB. We'll also need to pass some useful data, like the 
+  //     // id of the workout, and whether we are creating a new workout or updating
+  //     // an existing one.
+  //     if(!data._id) data.id=id;
+  //     data.transType="updateOne";
+  //     saveRecord(data);    
+  //   })
+  //   .then((res)=>{
+  //     const json = res.json();
+  //     return json;
+  //   });
+  // },
   async addExercise(data) {
     const id = location.search.split("=")[1];
 
@@ -16,22 +38,11 @@ const API = {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data)
-    })
-    .catch((err) => {
-      // If they user can't reach our database, temporarily store it in 
-      // their indexDB. We'll also need to pass some useful data, like the 
-      // id of the workout, and whether we are creating a new workout or updating
-      // an existing one.
-      if(!data._id) data.id=id;
-      data.transType="updateOne";
-      saveRecord(data);    
-    })
-    .then((res)=>{
-      const json = res.json();
-      return json;
     });
 
+    const json = await res.json();
 
+    return json;
   },
   async createWorkout(data = {}) {
     const res = await fetch("/api/workouts", {

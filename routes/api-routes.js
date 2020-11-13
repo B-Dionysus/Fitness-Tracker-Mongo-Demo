@@ -26,8 +26,8 @@ function apiRoutes(app){
     // If there's no id, then we're creating a new
     // workout with no exercises in it.
     app.post("/api/workouts/", (req, res) => {
+        console.log("Hello?");
         insertWorkout(req, res, (data)=>{
-            console.log(data);
             res.json(data);
         })
     });
